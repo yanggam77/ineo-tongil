@@ -119,7 +119,8 @@ details th{white-space:nowrap;color:var(--ink);font-weight:500}
 .bar .in{max-width:520px;margin:0 auto;display:flex;flex-wrap:wrap;gap:8px}
 .follow{flex:1 1 100%;display:flex;align-items:center;justify-content:center;gap:8px;box-sizing:border-box;border-radius:12px;padding:14px 16px;font-size:16px;font-weight:700;text-decoration:none;background:var(--card);color:var(--pink);border:1.5px solid var(--pink)}
 .follow svg{flex:none}
-.screen.done{padding-bottom:190px}
+.ineo{flex:1 1 100%;margin:2px 0 0;font-size:12px;line-height:1.55;color:var(--ink-soft);text-align:center;word-break:keep-all}
+.screen.done{padding-bottom:240px}
 .btn{flex:1;border:0;border-radius:12px;padding:16px;font-size:17px;font-weight:700;cursor:pointer;background:var(--sky);color:var(--sky-ink)}
 .btn:disabled{opacity:.4;cursor:not-allowed}
 .btn.ghost{flex:none;background:var(--card);color:var(--ink);border:1.5px solid var(--line);font-weight:500;padding-inline:18px}
@@ -346,6 +347,7 @@ body.kid .adult-only{display:none!important}
   <button type="button" class="btn ghost" id="back" hidden>이전</button>
   <button type="button" class="btn" id="next">아이와 시작하기</button>
   <a class="follow" id="follow" href="https://www.instagram.com/ineo_kids/" target="_blank" rel="noopener" hidden><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1" fill="currentColor"></circle></svg>인어(@ineo_kids) 채널 구독하기</a>
+  <p class="ineo" id="ineoNote" hidden>인어는 ‘AI 시대에 인문학을 읽는 어린이’의 줄임말이에요.<br>사계절출판사가 어린이와 함께 질문으로 생각하는 힘을 키우는 채널입니다.</p>
 </div></div>
 
 <script>
@@ -401,6 +403,7 @@ body.kid .adult-only{display:none!important}
     $("stepLabel").textContent = q ? s + " / " + LAST_Q : "";
     $("back").hidden = !q;
     $("follow").hidden = s !== DONE;
+    $("ineoNote").hidden = s !== DONE;
     var nb = $("next");
     nb.hidden = s === "closed" || s === 0;
     nb.textContent = s === 0 ? "아이와 시작하기" : s === LAST_Q ? "보내기" : s === DONE ? "한 명 더 응답하기" : "다음";
