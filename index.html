@@ -1,0 +1,521 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="아이에게 질문 몇 개를 건네고, 아이가 한 말을 그대로 적어 주세요. 선착순 100분께 한반도 키링을 드려요.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://yanggam77.github.io/ineo-tongil/">
+<meta property="og:title" content="우리 아이는 통일을 어떻게 생각할까요?">
+<meta property="og:description" content="『통일, 꼭 필요할까요?』 어린이 생각 설문 · 선착순 100분 한반도 키링 · 10월 29일까지">
+<meta property="og:image" content="https://yanggam77.github.io/ineo-tongil/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>우리 아이 통일 생각</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&display=swap">
+<style>
+/* Layout: 한 화면에 질문 한 장. 위에는 진행 막대, 가운데 질문 카드, 아래 고정 버튼. 휴대폰 세로 화면 기준 */
+:root{
+  --paper:#F6F9FC; --card:#FFFFFF; --ink:#15233A; --ink-soft:#56657A;
+  --sky:#2F7ACB; --sky-ink:#FFFFFF; --sky-soft:#E1EDF9; --line:#D3DEEA;
+  --pink:#D94F9C; --mark:#F5C518; --mark-soft:#FFF4CC; --danger:#C2412D;
+  --f-body:"Pretendard Variable",Pretendard,"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --f-display:var(--f-body); --f-hand:var(--f-body);
+  --r:14px;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#0E1623; --card:#162133; --ink:#E7EEF6; --ink-soft:#9DAABB;
+  --sky:#6AACE8; --sky-ink:#0B1420; --sky-soft:#1C2D44; --line:#2B3B52;
+  --pink:#F28AC4; --mark:#F5D04A; --mark-soft:#3A3115; --danger:#F08A73; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#0E1623; --card:#162133; --ink:#E7EEF6; --ink-soft:#9DAABB;
+  --sky:#6AACE8; --sky-ink:#0B1420; --sky-soft:#1C2D44; --line:#2B3B52;
+  --pink:#F28AC4; --mark:#F5D04A; --mark-soft:#3A3115; --danger:#F08A73; color-scheme:dark}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.65;word-break:keep-all;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));}
+.wrap{max-width:520px;margin:0 auto;min-height:100%;display:flex;flex-direction:column;padding-block:20px 0}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--sky);outline-offset:2px}
+
+/* 상단 */
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:13px;color:var(--ink-soft)}
+.brand{font-weight:700;letter-spacing:.02em}
+.brand b{color:var(--pink)}
+.progress{height:6px;border-radius:99px;background:var(--line);margin-top:12px;overflow:hidden}
+.progress i{display:block;height:100%;width:0;background:var(--sky);border-radius:99px;transition:width .35s ease}
+
+/* 화면 */
+.screen{flex:1;display:flex;flex-direction:column;gap:18px;padding-block:22px 120px}
+.screen[hidden]{display:none!important}
+
+/* 첫 화면 */
+.hero{display:grid;gap:14px}
+.hero .q-big{font-family:var(--f-display);font-weight:800;font-size:clamp(30px,8vw,40px);line-height:1.25;letter-spacing:-.02em;margin:0;text-wrap:balance}
+.hero .q-big em{font-style:normal;color:var(--pink)}
+.hero p{margin:0;color:var(--ink-soft)}
+.art{width:100%;max-width:100%;aspect-ratio:720/256;object-fit:cover;border-radius:var(--r);display:block;background:var(--sky-soft)}
+.book{display:flex;gap:14px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:14px}
+.book .cover{width:72px;aspect-ratio:3/4;flex:none;border-radius:4px;background:var(--sky-soft);overflow:hidden}
+.book .cover img{width:100%;height:100%;object-fit:cover}
+.book div{min-width:0;font-size:14px;color:var(--ink-soft)}
+.book strong{display:block;color:var(--ink);font-size:15px}
+.gift{background:var(--mark-soft);border-radius:var(--r);padding:16px;display:grid;gap:4px}
+.gift .lead{font-weight:700}
+.gift .count{font-weight:800;font-size:24px;line-height:1.3}
+.gift .count span{color:var(--ink)}
+.gift small{color:var(--ink-soft);font-size:13px}
+.how{display:grid;gap:10px;margin:0;padding:0;list-style:none;font-size:14px;color:var(--ink-soft)}
+.how li{display:flex;gap:10px}
+.how li b{flex:none;width:22px;height:22px;border-radius:50%;background:var(--sky-soft);color:var(--sky);display:grid;place-items:center;font-size:12px}
+
+/* 질문 카드 */
+.qno{font-size:13px;font-weight:700;color:var(--sky);letter-spacing:.04em}
+.qtitle{font-size:clamp(22px,6vw,27px);line-height:1.35;margin:4px 0 0;text-wrap:balance;font-weight:700;letter-spacing:-.01em}
+.ask{position:relative;background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:14px 16px 14px 16px}
+.ask::before{content:"아이에게 이렇게 물어봐 주세요";display:block;font-size:12px;font-weight:700;color:var(--ink-soft);letter-spacing:.02em;margin-bottom:2px}
+.ask p{margin:0;font-size:18px;font-weight:600;line-height:1.5;color:var(--ink)}
+.hint{font-size:13px;color:var(--ink-soft);margin:0}
+.opt{font-size:12px;font-weight:500;color:var(--ink-soft);border:1px solid var(--line);border-radius:99px;padding:1px 8px;margin-left:6px;vertical-align:middle;font-family:var(--f-body)}
+
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1.5px solid var(--line);background:var(--card);border-radius:99px;padding:10px 16px;cursor:pointer;font-size:15px;transition:border-color .15s,background .15s}
+.chip[aria-pressed="true"]{border-color:var(--sky);background:var(--sky-soft);color:var(--ink);font-weight:700}
+.big3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.big3 .chip{border-radius:var(--r);padding:16px 6px;display:grid;gap:4px;justify-items:center;text-align:center}
+.big3 .chip span{font-size:26px;font-weight:800;line-height:1}
+
+.field{display:grid;gap:6px}
+.field label{font-size:14px;font-weight:500}
+input[type=text],input[type=tel],input[type=email],textarea{width:100%;font:inherit;font-size:16px;color:var(--ink);background:var(--card);
+  border:1.5px solid var(--line);border-radius:10px;padding:12px 14px}
+input::placeholder,textarea::placeholder{color:var(--ink-soft);opacity:.7}
+input:focus,textarea:focus{border-color:var(--sky);outline:none}
+textarea{min-height:110px;resize:vertical}
+.words{display:grid;gap:8px}
+.words input{font-size:17px}
+
+/* 응모 */
+.toggle{display:flex;gap:12px;align-items:flex-start;background:var(--mark-soft);border-radius:var(--r);padding:14px 16px;cursor:pointer}
+.check{display:flex;gap:10px;align-items:flex-start;font-size:14px;cursor:pointer}
+input[type=checkbox]{width:20px;height:20px;flex:none;margin:2px 0 0;accent-color:var(--sky)}
+details{font-size:13px;color:var(--ink-soft);border-left:2px solid var(--line);padding-left:12px}
+details summary{cursor:pointer;color:var(--ink)}
+details table{border-collapse:collapse;margin-top:6px;width:100%}
+details th,details td{text-align:left;padding:4px 6px 4px 0;vertical-align:top;font-weight:400}
+details th{white-space:nowrap;color:var(--ink);font-weight:500}
+.entry{display:grid;gap:14px}
+.entry[hidden]{display:none!important}
+
+/* 하단 버튼 */
+.bar{position:fixed;left:0;right:0;bottom:0;background:linear-gradient(to top,var(--paper) 70%,transparent);
+  padding:20px max(16px,env(safe-area-inset-right,0px)) calc(16px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+.bar .in{max-width:520px;margin:0 auto;display:flex;gap:8px}
+.btn{flex:1;border:0;border-radius:12px;padding:16px;font-size:17px;font-weight:700;cursor:pointer;background:var(--sky);color:var(--sky-ink)}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.btn.ghost{flex:none;background:var(--card);color:var(--ink);border:1.5px solid var(--line);font-weight:500;padding-inline:18px}
+.err{color:var(--danger);font-size:14px;margin:0;min-height:1.4em}
+
+/* 완료 */
+.done{text-align:left;gap:16px}
+.stamp{font-weight:800;font-size:clamp(28px,7.5vw,36px);line-height:1.3;letter-spacing:-.02em;margin:0;text-wrap:balance}
+.result{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:16px;display:grid;gap:4px}
+.result .rank{font-weight:800;font-size:22px;color:var(--sky);line-height:1.35}
+.echo{font-size:18px;font-weight:600;line-height:1.5;background:var(--sky-soft);border-radius:var(--r);padding:14px 16px;margin:0}
+.echo small{display:block;font-family:var(--f-body);font-size:12px;color:var(--ink-soft);margin-bottom:2px}
+.note{font-size:13px;color:var(--ink-soft)}
+.draft{background:var(--mark-soft);border:1px dashed var(--mark);border-radius:10px;padding:8px 12px;font-size:13px;margin-top:12px}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+/* 문항 그림: 책 본문 장면. 그림 배경이 흰색이라 어두운 화면에서도 흰 판 위에 올림 */
+.ill{margin:0;display:grid;gap:6px}
+.ill .pic{background:#FFFFFF;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;display:grid;place-items:center}
+.ill img{display:block;width:100%;max-height:190px;object-fit:contain}
+.ill figcaption{font-size:12px;color:var(--ink-soft)}
+.ill figcaption b{color:var(--pink);font-weight:700;margin-right:4px}
+/* 아이가 직접 답하는 모드 */
+.kid-only{display:none}
+body.kid .kid-only{display:block}
+body.kid .adult-only{display:none!important}
+.modes{display:grid;gap:10px}
+.mode{display:grid;gap:2px;text-align:left;border:1.5px solid var(--line);background:var(--card);border-radius:var(--r);padding:16px 18px;cursor:pointer}
+.mode b{font-weight:700;font-size:18px;line-height:1.4;color:var(--sky)}
+.mode:hover{border-color:var(--sky)}
+.pick{font-size:15px;font-weight:700;margin:0}
+.mode span{font-size:14px;color:var(--ink-soft)}
+.handoff{background:var(--mark-soft);border-radius:var(--r);padding:14px 16px;font-weight:700}
+.handoff small{display:block;font-weight:400;color:var(--ink-soft)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+
+<div class="wrap">
+  <header class="top">
+    <span class="brand">인어 <b>@ineo_kids</b> × 사계절</span>
+    <span id="stepLabel"></span>
+  </header>
+  <div class="progress" aria-hidden="true"><i id="bar"></i></div>
+  <p class="draft" id="draftNote" hidden>초안 화면입니다. 지금은 응답이 저장되지 않아요.</p>
+
+  <form id="f" novalidate>
+    <input class="hp" type="text" id="website" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+    <!-- 0. 시작 -->
+    <section class="screen" data-step="0">
+      <img class="art" src="duo.jpg" alt="남과 북의 두 사람이 마주 앉아 '통일?' '통일!' 하고 말하는 그림">
+      <div class="hero">
+        <h1 class="q-big">우리 아이는<br><em>통일</em>을 어떻게<br>생각할까요?</h1>
+        <p>아이에게 질문 몇 개를 건네고, 아이가 한 말을 그대로 적어 주세요. 5분이면 충분합니다.</p>
+      </div>
+
+      <div class="book">
+        <div class="cover"><img src="cover.jpg" alt="『통일, 꼭 필요할까요?』 표지"></div>
+        <div>
+          <strong>『통일, 꼭 필요할까요?』</strong>
+          반갑다 사회야 34 · 이제훈 글 · 박우희 그림<br>
+          통일과 북한에 대한 39가지 질문을 함께 생각하는 책
+        </div>
+      </div>
+
+      <div class="gift">
+        <span class="lead">응답해 주신 분 중 선착순 100분께 한반도 키링을 보내 드려요</span>
+        <span class="count">남은 키링 <span id="remain">100</span>개</span>
+        <small>10월 29일(목)까지 · 11월 2일(월) 개별 안내 · 한 연락처당 1개<br>※ 성의 없는 응답은 제외될 수 있어요.</small>
+      </div>
+
+      <p class="pick" id="pickLabel">응답자를 선택해 주세요.</p>
+      <div class="modes" role="group" aria-labelledby="pickLabel">
+        <button type="button" class="mode" data-mode="adult"><b>어른이 아이에게 물어볼게요</b><span>질문 카드의 말로 묻고, 아이가 한 말을 그대로 적어 주세요.</span></button>
+        <button type="button" class="mode" data-mode="kid"><b>아이가 직접 답할게요</b><span>아이 혼자 읽고 적어요. 마지막 응모만 어른이 해 주세요.</span></button>
+      </div>
+    </section>
+
+    <!-- 1 -->
+    <section class="screen" data-step="1" hidden>
+      <figure class="ill"><div class="pic"><img src="ill-grade.jpg" alt="바닷가에서 아이들이 물놀이하는 그림" loading="lazy"></div><figcaption><b>책 속 질문 26</b>여름방학 때 원산해수욕장에 갈 수 있을까요?</figcaption></figure>
+      <div class="adult-only"><div class="qno">먼저</div><h2 class="qtitle">응답해 주시는 분은 누구인가요?</h2></div>
+      <div class="chips adult-only" data-name="role" role="group" aria-label="응답하시는 분">
+        <button type="button" class="chip" aria-pressed="false" data-v="학부모">학부모</button>
+        <button type="button" class="chip" aria-pressed="false" data-v="교사">교사</button>
+        <button type="button" class="chip" aria-pressed="false" data-v="사서">사서</button>
+        <button type="button" class="chip" aria-pressed="false" data-v="기타">기타</button>
+      </div>
+      <div><h3 class="qtitle adult-only" style="font-size:22px">아이는 몇 학년인가요? <span class="opt">선택</span></h3><div class="kid-only"><div class="qno">안녕! 먼저</div><h2 class="qtitle">너는 몇 학년이야? <span class="opt">선택</span></h2></div></div>
+      <div class="chips" data-name="grade" role="group" aria-label="아이 학년">
+        <button type="button" class="chip" aria-pressed="false" data-v="1학년">1학년</button>
+        <button type="button" class="chip" aria-pressed="false" data-v="2학년">2학년</button>
+        <button type="button" class="chip" aria-pressed="false" data-v="3학년">3학년</button>
+        <button type="button" class="chip" aria-pressed="false" data-v="4학년">4학년</button>
+        <button type="button" class="chip" aria-pressed="false" data-v="5학년">5학년</button>
+        <button type="button" class="chip" aria-pressed="false" data-v="6학년">6학년</button>
+        <button type="button" class="chip" aria-pressed="false" data-v="기타">그 밖의 나이</button>
+      </div>
+    </section>
+
+    <!-- 2 -->
+    <section class="screen" data-step="2" hidden>
+      <figure class="ill"><div class="pic"><img src="ill-q1.jpg" alt="남과 북의 국기가 그려진 한반도 지도 그림" loading="lazy"></div><figcaption><b>책 속 질문 07</b>휴전선은 국경이 아닌가요?</figcaption></figure>
+      <div><div class="qno">질문 1</div><h2 class="qtitle adult-only">'북한' 하면 떠오르는 단어</h2><h2 class="qtitle kid-only">'북한' 하면 떠오르는 말을 세 개까지 적어 줘</h2></div>
+      <div class="ask adult-only"><p>"'북한' 하면 어떤 말이 떠올라? 생각나는 대로 세 개만 말해 줄래?"</p></div>
+      <div class="words">
+        <input type="text" id="w1" maxlength="30" placeholder="첫 번째 단어" aria-label="떠오르는 단어 1">
+        <input type="text" id="w2" maxlength="30" placeholder="두 번째 단어 (없으면 비워 두세요)" aria-label="떠오르는 단어 2">
+        <input type="text" id="w3" maxlength="30" placeholder="세 번째 단어 (없으면 비워 두세요)" aria-label="떠오르는 단어 3">
+      </div>
+    </section>
+
+    <!-- 3 -->
+    <section class="screen" data-step="3" hidden>
+      <figure class="ill"><div class="pic"><img src="ill-q2.jpg" alt="남과 북의 두 친구가 명절 이야기를 나누는 그림" loading="lazy"></div><figcaption><b>책 속 질문 09</b>북한에도 설이나 추석이 있나요?</figcaption></figure>
+      <div><div class="qno">질문 2</div><h2 class="qtitle adult-only">북한 이야기를 처음 들은 곳</h2><h2 class="qtitle kid-only">북한 이야기를 어디서 처음 들어 봤어?</h2></div>
+      <div class="ask adult-only"><p>"북한 이야기를 어디서 처음 들어 봤어?"</p></div>
+      <div class="chips" data-name="source" role="group" aria-label="처음 들은 곳">
+        <button type="button" class="chip" aria-pressed="false" data-v="뉴스">뉴스</button>
+        <button type="button" class="chip" aria-pressed="false" data-v="학교">학교</button>
+        <button type="button" class="chip" aria-pressed="false" data-v="유튜브">유튜브</button>
+        <button type="button" class="chip" aria-pressed="false" data-v="책">책</button>
+        <button type="button" class="chip" aria-pressed="false" data-v="가족">가족</button>
+        <button type="button" class="chip" aria-pressed="false" data-v="기억 안 남">기억 안 남</button>
+      </div>
+    </section>
+
+    <!-- 4 -->
+    <section class="screen" data-step="4" hidden>
+      <figure class="ill"><div class="pic"><img src="ill-q3.jpg" alt="파란 남쪽과 빨간 북쪽이 주먹을 맞대고 통일을 외치는 그림" loading="lazy"></div><figcaption><b>책 속 질문 35</b>근데 통일을 꼭 해야 하나요?</figcaption></figure>
+      <div><div class="qno">질문 3</div><h2 class="qtitle adult-only">통일이 되면 좋을까요?</h2><h2 class="qtitle kid-only">남한과 북한이 통일되면 좋을 것 같아?</h2></div>
+      <div class="ask adult-only"><p>"남한과 북한이 통일되면 좋을 것 같아?"</p></div>
+      <div class="chips big3" data-name="thought" role="group" aria-label="통일 생각">
+        <button type="button" class="chip" aria-pressed="false" data-v="좋다"><span>○</span>좋다</button>
+        <button type="button" class="chip" aria-pressed="false" data-v="싫다"><span>×</span>싫다</button>
+        <button type="button" class="chip" aria-pressed="false" data-v="잘 모르겠다"><span>?</span>잘 모르겠다</button>
+      </div>
+      <div class="field">
+        <label for="reason"><span class="adult-only">"왜 그렇게 생각했어?"</span><span class="kid-only">왜 그렇게 생각해?</span></label>
+        <textarea id="reason" maxlength="500" placeholder="생각한 그대로 적어 주세요"></textarea>
+        <p class="hint kid-only">이름이나 학교 이름은 적지 않아도 돼요.</p>
+      </div>
+    </section>
+
+    <!-- 5 -->
+    <section class="screen" data-step="5" hidden>
+      <figure class="ill"><div class="pic"><img src="ill-q4.jpg" alt="다리 위에서 남쪽 친구가 북쪽 친구에게 말을 거는 그림" loading="lazy"></div><figcaption><b>책 속 질문 32</b>얘기를 자주 많이 하면 친해지나요?</figcaption></figure>
+      <div><div class="qno">질문 4</div><h2 class="qtitle adult-only">북한 친구에게 묻고 싶은 것</h2><h2 class="qtitle kid-only">북한에 사는 친구를 만나면 제일 먼저 뭘 물어보고 싶어?</h2></div>
+      <div class="ask adult-only"><p>"북한에 사는 친구를 만나면 제일 먼저 뭘 물어보고 싶어?"</p></div>
+      <div class="field">
+        <textarea id="question" maxlength="500" placeholder="예: 학교에서 무슨 놀이를 해?"></textarea>
+        <p class="hint kid-only">이름이나 학교 이름은 적지 않아도 돼요.</p>
+      </div>
+    </section>
+
+    <!-- 6 -->
+    <section class="screen" data-step="6" hidden>
+      <figure class="ill"><div class="pic"><img src="ill-adult.jpg" alt="남과 북의 두 친구가 손잡고 무지개를 건너는 그림" loading="lazy"></div><figcaption><b>책 속 질문 39</b>통일을 하면 뭐가 좋아지나요?</figcaption></figure>
+      <div class="handoff kid-only">다 했어! 고마워. 이제 어른에게 화면을 건네 줘.<small>여기부터는 보호자나 선생님이 적어 주세요.</small></div>
+      <div><div class="qno">마지막으로 어른께</div><h2 class="qtitle">아이와 이야기 나누며 어떠셨나요? <span class="opt">선택</span></h2></div>
+      <div class="field">
+        <textarea id="adultNote" maxlength="500" placeholder="예: 아이와 통일 이야기를 처음 해 봤어요"></textarea>
+      </div>
+      <label class="check"><input type="checkbox" id="contentConsent" checked>
+        <span>아이의 답을 이름 없이 인어 채널 콘텐츠에 소개해도 좋아요. <span class="opt">선택</span></span></label>
+    </section>
+
+    <!-- 7. 응모 -->
+    <section class="screen" data-step="7" hidden>
+      <figure class="ill"><div class="pic"><img src="ill-entry.jpg" alt="남과 북 사람들이 국기와 한반도기를 들고 행진하는 그림" loading="lazy"></div><figcaption><b>책 속 질문 06</b>‘한반도기’가 뭐예요?</figcaption></figure>
+      <div><div class="qno">키링 응모</div><h2 class="qtitle">키링을 받으실 연락처를 남겨 주세요</h2></div>
+      <label class="toggle"><input type="checkbox" id="apply" checked>
+        <span><b>한반도 키링 응모하기</b><br><small class="note">남은 키링 <span class="remain2">100</span>개 · 응모하지 않아도 설문은 저장돼요</small></span></label>
+      <div class="entry" id="entry">
+        <div class="field"><label for="name">이름</label><input type="text" id="name" maxlength="20" autocomplete="name"></div>
+        <div class="field"><label for="phone">휴대폰 번호</label><input type="tel" id="phone" maxlength="13" inputmode="numeric" autocomplete="tel" placeholder="010-0000-0000"></div>
+        <label class="check"><input type="checkbox" id="privacyConsent">
+          <span>키링 응모를 위한 개인정보 수집·이용에 동의합니다. <b>(필수)</b></span></label>
+        <details>
+          <summary>자세히 보기</summary>
+          <table>
+            <tr><th>항목</th><td>이름, 휴대폰 번호</td></tr>
+            <tr><th>목적</th><td>당첨 안내, 키링 발송 및 관련 문의 응대</td></tr>
+            <tr><th>보관</th><td>수집일로부터 1년 후 파기</td></tr>
+          </table>
+          동의하지 않으셔도 설문에는 참여할 수 있으며, 이 경우 키링 응모는 되지 않습니다. 배송 주소는 당첨되신 분께만 따로 여쭙니다.
+        </details>
+        <label class="check"><input type="checkbox" id="marketingConsent">
+          <span>사계절출판사의 새 책과 이벤트 소식을 받아 볼게요. <span class="opt">선택</span></span></label>
+        <div class="field" id="emailField" hidden><label for="email">이메일 <span class="opt">선택</span></label>
+          <input type="email" id="email" maxlength="80" autocomplete="email" placeholder="소식을 이메일로도 받고 싶으시면 적어 주세요"></div>
+        <details>
+          <summary>자세히 보기</summary>
+          <table>
+            <tr><th>항목</th><td>이름, 휴대폰 번호, 이메일(적은 경우)</td></tr>
+            <tr><th>목적</th><td>신간·행사·이벤트 등 홍보 및 광고성 정보 안내 (문자, 카카오톡, 이메일)</td></tr>
+            <tr><th>보관</th><td>수집일로부터 1년 또는 수신 거부 시까지</td></tr>
+          </table>
+          동의하지 않으셔도 키링 응모에는 아무 영향이 없습니다. 언제든 수신 거부하실 수 있습니다.
+        </details>
+      </div>
+    </section>
+
+    <!-- 8. 완료 -->
+    <section class="screen done" data-step="8" hidden>
+      <img class="art" src="duo.jpg" alt="">
+      <h2 class="stamp">아이의 생각이<br>잘 도착했어요</h2>
+      <div class="result" id="result"></div>
+      <p class="echo" id="echo"></p>
+      <p class="note">모인 생각들은 『통일, 꼭 필요할까요?』의 질문들과 함께 인어 채널에서 소개할게요.</p>
+    </section>
+
+    <!-- 마감 -->
+    <section class="screen" data-step="closed" hidden>
+      <h2 class="stamp">응모가<br>마감되었어요</h2>
+      <p>함께해 주셔서 고맙습니다. 모인 아이들의 생각은 인어 채널(@ineo_kids)에서 곧 소개할게요.</p>
+    </section>
+  </form>
+</div>
+
+<div class="bar"><div class="in">
+  <button type="button" class="btn ghost" id="back" hidden>이전</button>
+  <button type="button" class="btn" id="next">아이와 시작하기</button>
+</div></div>
+
+<script>
+(function(){
+  // ===== 설정 =====
+  var SCRIPT_URL = "";   // Apps Script 웹 앱 주소를 배포 후 여기에 붙여 넣습니다. 비어 있으면 미리보기 모드
+  var DEADLINE = new Date("2026-10-29T23:59:59+09:00");
+  var LAST_Q = 7, DONE = 8;
+
+  var params = new URLSearchParams(location.search);
+  var from = (params.get("from") || "direct").slice(0,20);
+  var step = 0, state = {}, saved = {}, mode = "adult";
+  var $ = function(id){return document.getElementById(id)};
+  var screens = document.querySelectorAll(".screen");
+
+  // 선택 칩
+  document.querySelectorAll(".chips").forEach(function(g){
+    g.addEventListener("click", function(e){
+      var b = e.target.closest(".chip"); if(!b) return;
+      var name = g.dataset.name, on = b.getAttribute("aria-pressed") === "true";
+      g.querySelectorAll(".chip").forEach(function(c){c.setAttribute("aria-pressed","false")});
+      if(!on){ b.setAttribute("aria-pressed","true"); state[name] = b.dataset.v; } else { delete state[name]; }
+      refresh();
+    });
+  });
+  document.querySelectorAll("input,textarea").forEach(function(el){el.addEventListener("input",refresh)});
+  $("apply").addEventListener("change", function(){ $("entry").hidden = !this.checked; refresh(); });
+  $("marketingConsent").addEventListener("change", function(){ $("emailField").hidden = !this.checked; });
+  $("phone").addEventListener("input", function(){
+    var d = this.value.replace(/\D/g,"").slice(0,11);
+    this.value = d.length < 4 ? d : d.length < 8 ? d.slice(0,3)+"-"+d.slice(3) : d.slice(0,3)+"-"+d.slice(3,d.length-4)+"-"+d.slice(-4);
+  });
+
+  function valid(s){
+    switch(s){
+      case 1: return !!state.role;
+      case 2: return $("w1").value.trim().length > 0;
+      case 3: return !!state.source;
+      case 4: return !!state.thought;
+      case 5: return $("question").value.trim().length > 0;
+      case 7:
+        if(!$("apply").checked) return true;
+        return $("name").value.trim() && $("phone").value.replace(/\D/g,"").length >= 10 && $("privacyConsent").checked;
+      default: return true;
+    }
+  }
+
+  function show(s){
+    step = s;
+    screens.forEach(function(sc){ sc.hidden = sc.dataset.step !== String(s); });
+    var q = typeof s === "number" && s >= 1 && s <= LAST_Q;
+    $("bar").style.width = (s === DONE ? 100 : q ? Math.round(s / LAST_Q * 100) : 0) + "%";
+    $("stepLabel").textContent = q ? s + " / " + LAST_Q : "";
+    $("back").hidden = !q;
+    var nb = $("next");
+    nb.hidden = s === "closed" || s === 0;
+    nb.textContent = s === 0 ? "아이와 시작하기" : s === LAST_Q ? "보내기" : s === DONE ? "한 명 더 응답하기" : "다음";
+    $("err") && ($("err").textContent = "");
+    refresh();
+    window.scrollTo(0,0);
+  }
+  function refresh(){ $("next").disabled = !valid(step); }
+
+  document.querySelectorAll(".mode").forEach(function(b){
+    b.addEventListener("click", function(){
+      mode = b.dataset.mode;
+      document.body.classList.toggle("kid", mode === "kid");
+      if(mode === "kid") state.role = "어린이 직접";
+      else if(state.role === "어린이 직접") delete state.role;
+      show(1);
+    });
+  });
+  $("back").addEventListener("click", function(){ if(step > 1) show(step - 1); else show(0); });
+  $("next").addEventListener("click", function(){
+    if(step === DONE) return again();
+    if(!valid(step)) return;
+    if(step === LAST_Q) return submit();
+    show(step + 1);
+  });
+
+  function payload(){
+    return {
+      from: from, role: state.role || "", grade: state.grade || "",
+      words: [$("w1").value, $("w2").value, $("w3").value],
+      source: state.source || "", thought: state.thought || "",
+      reason: $("reason").value, question: $("question").value,
+      adultNote: $("adultNote").value, contentConsent: $("contentConsent").checked,
+      apply: $("apply").checked, name: $("name").value, phone: $("phone").value,
+      privacyConsent: $("privacyConsent").checked,
+      marketingConsent: $("apply").checked && $("marketingConsent").checked,
+      email: $("marketingConsent").checked ? $("email").value : "",
+      website: $("website").value
+    };
+  }
+
+  function submit(){
+    var nb = $("next"); nb.disabled = true; nb.textContent = "보내는 중…";
+    var data = payload();
+    var req = SCRIPT_URL
+      ? fetch(SCRIPT_URL, {method:"POST", headers:{"Content-Type":"text/plain;charset=utf-8"}, body: JSON.stringify(data)}).then(function(r){return r.json()})
+      : new Promise(function(res){ setTimeout(function(){
+          var left = Number($("remain").textContent);
+          res({ok:true, remaining:Math.max(0,left-(data.apply?1:0)), prize: data.apply ? {status:"선착순 당첨", rank: 101-left} : null, preview:true});
+        }, 600); });
+    req.then(function(r){
+      if(!r.ok){
+        if(r.error === "closed") return show("closed");
+        throw new Error(r.error);
+      }
+      saved = data;
+      setRemain(r.remaining);
+      renderDone(r, data);
+      show(DONE);
+    }).catch(function(){
+      nb.disabled = false; nb.textContent = "다시 보내기";
+      showErr("전송하지 못했어요. 인터넷 연결을 확인하고 다시 눌러 주세요.");
+    });
+  }
+
+  function showErr(t){
+    var e = $("err");
+    if(!e){ e = document.createElement("p"); e.id = "err"; e.className = "err"; e.setAttribute("role","alert");
+      document.querySelector('[data-step="7"]').appendChild(e); }
+    e.textContent = t;
+  }
+
+  function renderDone(r, d){
+    var box = $("result"), p = r.prize;
+    if(p && p.status === "선착순 당첨"){
+      box.innerHTML = '<span class="rank"></span><span>11월 2일(월)에 문자로 배송 주소를 여쭐게요.</span>';
+      box.querySelector(".rank").textContent = "선착순 " + p.rank + "번째로 응모되었어요";
+    } else if(p && p.status === "중복"){
+      box.innerHTML = "<b>설문이 저장되었어요.</b><span>키링은 같은 연락처로 이미 응모되어 있어요.</span>";
+    } else if(p){
+      box.innerHTML = "<b>설문이 저장되었어요.</b><span>아쉽게도 키링 100개가 모두 소진되었어요. 아이의 생각은 잘 모아 소개할게요.</span>";
+    } else {
+      box.innerHTML = "<b>설문이 저장되었어요.</b><span>함께해 주셔서 고맙습니다.</span>";
+    }
+    if(r.preview) box.insertAdjacentHTML("beforeend",'<span class="note">미리보기 화면이라 실제로 저장되지는 않았어요.</span>');
+    var echo = $("echo"); echo.innerHTML = "<small>아이가 남긴 질문</small>";
+    echo.appendChild(document.createTextNode("“" + d.question.trim() + "”"));
+  }
+
+  // 한 명 더: 응답자 정보와 연락처는 남기고 아이 답만 비움
+  function again(){
+    ["w1","w2","w3","reason","question","adultNote"].forEach(function(id){ $(id).value = ""; });
+    ["grade","source","thought"].forEach(function(n){
+      delete state[n];
+      document.querySelectorAll('[data-name="'+n+'"] .chip').forEach(function(c){c.setAttribute("aria-pressed","false")});
+    });
+    $("apply").checked = false; $("entry").hidden = true;
+    show(1);
+  }
+
+  function setRemain(n){
+    if(typeof n !== "number") return;
+    $("remain").textContent = n;
+    document.querySelectorAll(".remain2").forEach(function(e){ e.textContent = n; });
+  }
+
+  if(!SCRIPT_URL) $("draftNote").hidden = false;
+  // 시작: 마감 확인과 남은 수량 불러오기
+  if(new Date() > DEADLINE){ show("closed"); }
+  else {
+    show(0);
+    if(SCRIPT_URL){
+      fetch(SCRIPT_URL).then(function(r){return r.json()}).then(function(r){
+        if(r.closed) return show("closed");
+        setRemain(r.remaining);
+      }).catch(function(){});
+    }
+  }
+})();
+</script>
+
+</body>
+</html>
